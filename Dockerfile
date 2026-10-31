@@ -1,7 +1,8 @@
 # Runtime image for the results map:
 #   docker build -t halo2-analyzer-fork .
-#   docker run --rm -v "$PWD/out:/out" halo2-analyzer-fork reproduce
+#   docker run --rm --user "$(id -u):$(id -g)" -v "$PWD/out:/out" halo2-analyzer-fork reproduce
 # Entry point is `just`, so any recipe name works as the command (smoke, bench-invoice, ...).
+# --user makes the files in out/ yours instead of root's; the image lets any user build and run.
 
 # cvc5 with finite-field support (CoCoA, hence --gpl), pinned to the commit the docs/ measurements
 # report as `1.3.5.dev+main@1e05d08b9`.
@@ -29,7 +30,8 @@ RUN curl -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-too
 WORKDIR /work
 COPY . .
 # Compile once at build time so `reproduce` runs offline against the committed Cargo.lock.
-RUN cargo build --release --locked -p korrekt --lib --tests
+RUN cargo build --release --locked -p korrekt --lib --tests \
+    && chmod -R a+rwX /work /opt/cargo
 ENV OUT=/out
 ENTRYPOINT ["just"]
 CMD ["reproduce"]

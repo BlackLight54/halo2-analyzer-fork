@@ -10,7 +10,7 @@ down its private inputs, and to recover those inputs where it can.
 
 ```sh
 docker build -t halo2-analyzer-fork .
-docker run --rm -v "$PWD/out:/out" halo2-analyzer-fork reproduce
+docker run --rm --user "$(id -u):$(id -g)" -v "$PWD/out:/out" halo2-analyzer-fork reproduce
 ```
 
 reruns every measurement in the results map into `out/`. TODO once the release exists: replace the
