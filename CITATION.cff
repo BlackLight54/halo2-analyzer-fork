@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+title: "Artifact for: Overconstrainedness"
+message: "If you use this artifact, cite the paper and the concept DOI. It builds on quantstamp/halo2-analyzer; cite that too."
+type: software
+authors:
+  - family-names: Koncz
+    given-names: Gábor
+    affiliation: Budapest University of Technology and Economics
+version: 1.0.0
+license: MIT
+repository-code: "https://github.com/gaborkoncz73/halo2-analyzer-fork"
+keywords:
+  - Halo2
+  - zero-knowledge proofs
+  - PLONKish circuits
+  - privacy
+  - SMT
+  - cvc5
+  - static analysis
+references:
+  - type: software
+    title: "halo2-analyzer (Korrekt)"
+    repository-code: "https://github.com/quantstamp/halo2-analyzer"
+    license: MIT
+    authors:
+      - name: Quantstamp
+      - family-names: Heidari
+        given-names: Fatemeh
+      - family-names: Kam
+        given-names: Jeffrey
+      - family-names: Gorzny
+        given-names: Jan
+      - name: mr-ma
+      - family-names: Jahanara
+        given-names: Mohammad
+      - name: sorawee

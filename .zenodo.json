@@ -1,0 +1,23 @@
+{
+  "title": "Artifact for: Overconstrainedness",
+  "description": "<p>Code and measurement scripts for the TDK paper <em>Overconstrainedness</em> (Gábor Koncz, BME VIK, 2026). The paper asks how far the public data of a Halo2 circuit narrows down its private inputs, and whether those inputs can be recovered in practice.</p><p>This is a fork of <a href=\"https://github.com/quantstamp/halo2-analyzer\">quantstamp/halo2-analyzer</a> (Korrekt), Quantstamp's MIT-licensed analyzer with contributions by Fatemeh Heidari, Jeffrey Kam, Jan Gorzny, mr-ma, Mohammad Jahanara and sorawee. It branches at upstream commit c201ed37b9daeab1c2289b57da13d097c009908f (2026-01-28). The upstream analyzer extracts Halo2 circuits, encodes their constraints as finite-field SMT formulas and checks them with cvc5. This fork adds the module korrekt/src/circuit_analyzer/ucp/: uniqueness constraint propagation (UCP) over an expression-tree view of the circuit, value and domain inference, bounded private-value recovery with SMT refinement, domain discovery and independent validation, the invoice and settlement examples of the paper, and the measurement harnesses behind the README's results map.</p>",
+  "upload_type": "software",
+  "version": "1.0.0",
+  "license": "MIT",
+  "creators": [
+    { "name": "Koncz, Gábor", "affiliation": "Budapest University of Technology and Economics" }
+  ],
+  "contributors": [
+    { "name": "Quantstamp", "type": "RightsHolder" },
+    { "name": "Heidari, Fatemeh", "type": "Other" },
+    { "name": "Kam, Jeffrey", "type": "Other" },
+    { "name": "Gorzny, Jan", "type": "Other" },
+    { "name": "mr-ma", "type": "Other" },
+    { "name": "Jahanara, Mohammad", "type": "Other" },
+    { "name": "sorawee", "type": "Other" }
+  ],
+  "related_identifiers": [
+    { "identifier": "https://github.com/quantstamp/halo2-analyzer", "relation": "isDerivedFrom", "resource_type": "software" }
+  ],
+  "keywords": ["Halo2", "zero-knowledge proofs", "PLONKish circuits", "privacy", "SMT", "cvc5", "static analysis"]
+}

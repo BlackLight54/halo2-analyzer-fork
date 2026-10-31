@@ -1,8 +1,99 @@
-# Korrekt
+# Artifact for: Overconstrainedness
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.TODO.svg)](https://doi.org/10.5281/zenodo.TODO)
+
+Code and measurement scripts for the TDK paper *Overconstrainedness* (Gábor Koncz, BME VIK, 2026).
+It extends the Halo2 analyzer Korrekt to measure how far the public data of a Halo2 circuit narrows
+down its private inputs, and to recover those inputs where it can.
+
+## Reproduce everything
+
+```sh
+docker build -t halo2-analyzer-fork .
+docker run --rm -v "$PWD/out:/out" halo2-analyzer-fork reproduce
+```
+
+reruns every measurement in the results map into `out/`. TODO once the release exists: replace the
+build line with the published image, `ghcr.io/gaborkoncz73/halo2-analyzer-fork:v1.0.0`.
+
+With the repository cloned and the dependencies below installed, `just reproduce` does the same,
+and `just reproduce --smoke` runs one repetition of each measurement. `just --list` names every
+recipe; any of them also works as the `docker run` command.
+
+Dependencies, pinned in the `Dockerfile`: Rust `nightly-2026-08-28`, crate versions from the
+committed `Cargo.lock`, cvc5 built with finite-field support from commit
+[`1e05d08b9`](https://github.com/cvc5/cvc5/commit/1e05d08b9f73281473dd06285bcafbeca0ae1b9f) (the version
+the measurements in `docs/` report), hyperfine and just.
+
+## Results map
+
+No figure or table of the paper uses these measurements yet; the first column is filled in when the
+evaluation chapter is written.
+
+| Paper | Recipe | Output | Committed result | Time |
+|---|---|---|---|---|
+| TODO | `just bench-invoice` | `out/invoice-base-benchmark.json` | [`benchmarks/results/invoice-base-benchmark.json`](benchmarks/results/invoice-base-benchmark.json): 10 runs, mean 1.76 s | about 20 s |
+| TODO | `just bench-settlement` | `out/settlement-measurements.txt` | [`benchmarks/results/settlement-benchmark.json`](benchmarks/results/settlement-benchmark.json) is empty | TODO |
+| TODO | `just bench-privacy` | `out/private-recovery-measurements.tsv`, `.summary.tsv`, `.incomplete.tsv` | discussed in [`docs/private-recovery-measurements.md`](docs/private-recovery-measurements.md) | TODO |
+
+Hardware: TODO (cores, memory, OS) of the machine that produced the committed results.
+
+## What does not reproduce
+
+- The SMT checks run under per-call wall-clock limits (`HALO2_ANALYZER_SMT_TIMEOUT_MS`, 2000 ms in
+  `bench-privacy`). On a slower machine a check that finished in time can report `unknown`, so
+  recovery counts as well as times can differ. The harnesses report such cases as incomplete
+  instead of dropping them.
+- Times depend on the machine; only the relative comparisons within one run are meaningful.
+- The invocation counts in [`docs/measurements/`](docs/measurements/) come from a harness at
+  baseline commit `a1c4976` that is not part of this tree; no recipe regenerates them.
+- Other Halo2 backends (PSE, Axiom, Scroll) were not measured; the recipes use the default Zcash backend.
+
+## Results tag
+
+The numbers in the paper come from tag `v1.0.0`, Zenodo version TODO. Later versions change the
+packaging, never the results.
+
+## Upstream and what this fork adds
+
+This repository is a fork of [quantstamp/halo2-analyzer](https://github.com/quantstamp/halo2-analyzer)
+(Korrekt), Quantstamp's analyzer with contributions by Fatemeh Heidari, Jeffrey Kam, Jan Gorzny,
+mr-ma, Mohammad Jahanara and sorawee. It branches at upstream commit
+[`c201ed3`](https://github.com/quantstamp/halo2-analyzer/commit/c201ed37b9daeab1c2289b57da13d097c009908f)
+(2026-01-28); everything after it is Gábor Koncz's work:
+
+- `korrekt/src/circuit_analyzer/ucp/`: uniqueness constraint propagation (UCP) over an expression-tree view
+  of the circuit, value and domain inference, bounded private-value recovery with SMT refinement,
+  domain discovery and independent validation, the paper's invoice and settlement examples
+  (`thesis_examples/`), and the measurement harnesses.
+- `korrekt/src/smt_solver/process.rs`: cvc5 runs as a supervised process with a wall-clock limit.
+- `korrekt/src/sample_circuits/zcash/simple/decoder_circuits.rs`: underconstrained decoder examples.
+- `docs/`: one note per feature, most of them in Hungarian, linked from
+  [Private Value Recovery In This Fork](#private-value-recovery-in-this-fork) below.
+- Test fixtures copied from `zcash/halo2` keep their own MIT notice in
+  `korrekt/src/circuit_analyzer/ucp/tests/external/fixtures/`.
+
+The rest of this README is the upstream documentation of the analyzer, with the fork's additions
+at its end.
+
+## Cite
+
+TODO BibTeX of the paper and of this artifact (the concept DOI). `CITATION.cff` and `.zenodo.json`
+carry the artifact metadata. Please also credit the upstream analyzer.
+
+## License
+
+MIT, see [`LICENSE`](LICENSE): the upstream Quantstamp copyright plus Gábor Koncz's for the changes.
+The Docker image builds cvc5 with CoCoA, which makes that cvc5 binary GPL-licensed; the image is
+for reproduction and is not part of the MIT-licensed source.
+
+---
+
+# Korrekt, the upstream analyzer
 
 ## Prerequisites
 
-Before you begin, ensure you have Installed CVC5 FOR Finite Field.
+Before you begin, ensure you have installed CVC5 for finite fields. The `Dockerfile` in this repository builds it on Ubuntu; the steps below are upstream's macOS notes.
 
 ## Installing CVC5 FOR Finite Field
 
