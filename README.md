@@ -38,6 +38,10 @@ evaluation chapter is written.
 
 Hardware: TODO (cores, memory, OS) of the machine that produced the committed results.
 
+`just reproduce --smoke` took 225 s in the Docker image on a 32-core x86_64 Linux machine with
+93 GB of memory, almost all of it in `bench-settlement small 1` (203 s). The full run takes longer;
+its time is TODO.
+
 ## What does not reproduce
 
 - The SMT checks run under per-call wall-clock limits (`HALO2_ANALYZER_SMT_TIMEOUT_MS`, 2000 ms in
