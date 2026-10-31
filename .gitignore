@@ -1,8 +1,19 @@
 **/target
 **/*.rs.bk
-**/Cargo.lock
 **/.vscode
 **/*.html
 **/src/output
 # Ignore Mac DS_Store files
 **/.DS_Store
+
+# Measurement output of the justfile recipes.
+out/
+
+# Secrets never enter the repository; commit an .env.example with placeholders instead.
+.env
+.env.*
+!.env.example
+wallets*
+*.pem
+*.key
+.claude/settings.local.json

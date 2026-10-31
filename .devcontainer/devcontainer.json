@@ -1,0 +1,7 @@
+{
+  "name": "halo2-analyzer-fork",
+  "build": { "dockerfile": "../Dockerfile", "context": ".." },
+  "overrideCommand": true,
+  "customizations": { "vscode": { "extensions": ["rust-lang.rust-analyzer"] } },
+  "postCreateCommand": "just --list"
+}
