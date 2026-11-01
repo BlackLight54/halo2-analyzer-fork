@@ -755,6 +755,7 @@ dependencies = [
  "serde",
  "toml",
  "try-catch",
+ "zk_halo2_playground",
 ]
 
 [[package]]
@@ -808,6 +809,11 @@ name = "memchr"
 version = "2.8.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cf8baf1c55e62ffcace7a9f06f4bd9cd3f0c4beb022d3b367256b91b87513d98"
+
+[[package]]
+name = "memory_debug_tools"
+version = "0.1.0"
+source = "git+https://github.com/Gorzorg/memory_debug_tools.git#aecc22757683505fde551fa5c63cd3510e0864ef"
 
 [[package]]
 name = "num"
@@ -1383,6 +1389,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "try_collect"
+version = "0.1.0"
+source = "git+https://github.com/Gorzorg/try_collect.git#960124849f55c8578d168a72aa278c38fd94de41"
+dependencies = [
+ "memory_debug_tools",
+]
+
+[[package]]
 name = "typenum"
 version = "1.20.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1561,6 +1575,17 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn 2.0.119",
+]
+
+[[package]]
+name = "zk_halo2_playground"
+version = "0.1.0"
+source = "git+https://github.com/LibeccioLabs/Halo2-Playground.git?rev=78c193ef92bb82312f871b74dfe5871cb00b2263#78c193ef92bb82312f871b74dfe5871cb00b2263"
+dependencies = [
+ "ff 0.13.1",
+ "halo2_proofs 0.3.0 (git+https://github.com/Analyzable-Halo2/zcash-halo2.git?rev=7fc5e14d53c19cc4e09f0af2ed4b87440e1bb4fb)",
+ "rand",
+ "try_collect",
 ]
 
 [[package]]
