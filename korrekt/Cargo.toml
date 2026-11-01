@@ -28,6 +28,9 @@ lazy_static = "1.4.0"
 
 [dev-dependencies]
 halo2_gadgets = { git = "https://github.com/Analyzable-Halo2/zcash-halo2.git", rev = "7fc5e14d53c19cc4e09f0af2ed4b87440e1bb4fb", default-features = false }
+# External scalability benchmark (tests/external/permutation_scaling_tests.rs); its zcash/halo2
+# dependency is redirected to the analyzer backend by the workspace patch.
+zk_halo2_playground = { git = "https://github.com/LibeccioLabs/Halo2-Playground.git", rev = "78c193ef92bb82312f871b74dfe5871cb00b2263", default-features = false }
 
 [lib]
 name = "korrekt"

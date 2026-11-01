@@ -89,3 +89,7 @@ mod wide_value_tests;
 #[cfg(all(test, feature = "use_zcash_halo2_proofs"))]
 #[path = "tests/external/external_poseidon_tests.rs"]
 mod external_poseidon_tests;
+
+#[cfg(all(test, feature = "use_zcash_halo2_proofs"))]
+#[path = "tests/external/permutation_scaling_tests.rs"]
+mod permutation_scaling_tests;

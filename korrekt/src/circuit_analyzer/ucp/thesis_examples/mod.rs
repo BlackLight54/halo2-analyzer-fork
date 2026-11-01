@@ -9,7 +9,7 @@ mod invoice_tests;
 use super::privacy::PrivacyAnalysisOptions;
 
 // A számla minden változatának ugyanazt a teljes keresési konfigurációt adja, a circuit vizsgálata nélkül.
-fn recovery_options() -> PrivacyAnalysisOptions {
+pub(super) fn recovery_options() -> PrivacyAnalysisOptions {
     fn env_value<T: std::str::FromStr>(name: &str, fallback: T) -> T {
         std::env::var(name)
             .map(|value| value.parse().unwrap_or_else(|_| panic!("Invalid {name}")))
